@@ -25,7 +25,6 @@ import onlyIfAuthenticated from '../utils/onlyIfAuthenticated';
 @connect((data, props) => ProfileScreen.getDataProps(data, props))
 export default class ProfileScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    headerTintColor: '#4E9BDE',
     title: navigation.getParam('username', 'Profile'),
     headerRight: navigation.getParam('username') ? (
       <OptionsButton />
@@ -58,15 +57,19 @@ export default class ProfileScreen extends React.Component {
       return;
     }
 
-    getViewerUsernameAsync().then(
-      username => {
-        this.setState({ isOwnProfile: username === this.props.username });
-      },
-      error => {
-        this.setState({ isOwnProfile: false });
-        console.warn(`There was an error fetching the viewer's username`, error);
-      }
-    );
+    if (!this.props.isAuthenticated) {
+      this.setState({ isOwnProfile: false });
+    } else {
+      getViewerUsernameAsync().then(
+        username => {
+          this.setState({ isOwnProfile: username === this.props.username });
+        },
+        error => {
+          this.setState({ isOwnProfile: false });
+          console.warn(`There was an error fetching the viewer's username`, error);
+        }
+      );
+    }
   }
 
   render() {

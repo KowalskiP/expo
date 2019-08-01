@@ -5,6 +5,7 @@ import AppAuth from '../screens/AppAuthScreen';
 import Audio from '../screens/AV/AudioScreen';
 import AuthSession from '../screens/AuthSessionScreen';
 import Branch from '../screens/BranchScreen';
+import Brightness from '../screens/BrightnessScreen';
 import Calendars from '../screens/CalendarsScreen';
 import Constants from '../screens/ConstantsScreen';
 import ContactDetail from '../screens/Contacts/ContactDetailScreen';
@@ -12,6 +13,7 @@ import Contacts from '../screens/Contacts/ContactsScreen';
 import DocumentPicker from '../screens/DocumentPickerScreen';
 import Events from '../screens/EventsScreen';
 import FacebookLogin from '../screens/FacebookLoginScreen';
+import FaceDetector from '../screens/FaceDetectorScreen';
 import FileSystem from '../screens/FileSystemScreen';
 import Font from '../screens/FontScreen';
 import Geocoding from '../screens/GeocodingScreen';
@@ -47,22 +49,12 @@ function optionalRequire(requirer: () => { default: React.ComponentType }) {
   }
 }
 
-const BackgroundFetch = optionalRequire(() =>
-  require('../screens/BackgroundFetchScreen')
-);
-const GoogleSignIn = optionalRequire(() =>
-  require('../screens/GoogleSignInScreen')
-);
+const BackgroundFetch = optionalRequire(() => require('../screens/BackgroundFetchScreen'));
+const GoogleSignIn = optionalRequire(() => require('../screens/GoogleSignInScreen'));
 const Haptics = optionalRequire(() => require('../screens/HapticsScreen'));
-const Localization = optionalRequire(() =>
-  require('../screens/LocalizationScreen')
-);
-const TaskManager = optionalRequire(() =>
-  require('../screens/TaskManagerScreen')
-);
-const LocationScreens = optionalRequire(() =>
-  require('../screens/Location/LocationScreens')
-);
+const Localization = optionalRequire(() => require('../screens/LocalizationScreen'));
+const TaskManager = optionalRequire(() => require('../screens/TaskManagerScreen'));
+const LocationScreens = optionalRequire(() => require('../screens/Location/LocationScreens'));
 const MediaLibraryScreens = optionalRequire(() =>
   require('../screens/MediaLibrary/MediaLibraryScreens')
 );
@@ -70,9 +62,7 @@ const Sensor = optionalRequire(() => require('../screens/SensorScreen'));
 const Accelerometer = optionalRequire(() => require('../screens/AccelerometerScreen'));
 
 const optionalScreens: {
-  [key: string]:
-    | React.ComponentType
-    | undefined
+  [key: string]: React.ComponentType | undefined;
 } = {
   Accelerometer,
   ActionSheet,
@@ -81,9 +71,11 @@ const optionalScreens: {
   AuthSession,
   BackgroundFetch,
   Branch,
+  Brightness,
   DocumentPicker,
   Localization,
   FacebookLogin,
+  FaceDetector,
   FileSystem,
   Font,
   Google,
@@ -132,10 +124,12 @@ interface ScreensObjectType {
   [key: string]: React.ComponentType;
 }
 
-export const Screens = Object.entries(optionalScreens)
-  .reduce<ScreensObjectType>((acc, [key, screen]) => {
+export const Screens = Object.entries(optionalScreens).reduce<ScreensObjectType>(
+  (acc, [key, screen]) => {
     if (screen) {
       acc[key] = screen;
     }
     return acc;
-  }, {});
+  },
+  {}
+);

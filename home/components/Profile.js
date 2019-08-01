@@ -1,5 +1,4 @@
 /* @flow */
-
 import React from 'react';
 import {
   ActivityIndicator,
@@ -11,12 +10,11 @@ import {
   View,
 } from 'react-native';
 import { ScrollView } from 'react-navigation';
-import FadeIn from '@expo/react-native-fade-in-image';
+import FadeIn from 'react-native-fade-in-image';
 
 import { take, takeRight } from 'lodash';
 import dedent from 'dedent';
 
-import Alerts from '../constants/Alerts';
 import Colors from '../constants/Colors';
 import PrimaryButton from './PrimaryButton';
 import EmptyProfileProjectsNotice from './EmptyProfileProjectsNotice';
@@ -221,8 +219,8 @@ export default class Profile extends React.Component {
     }
 
     return (
-      <View style={{marginBottom: 3}}>
-        <View style={[SharedStyles.sectionLabelContainer, { marginTop: 10,  }]}>
+      <View style={{ marginBottom: 3 }}>
+        <View style={[SharedStyles.sectionLabelContainer, { marginTop: 10 }]}>
           <Text style={SharedStyles.sectionLabelText}>PUBLISHED PROJECTS</Text>
         </View>
         {content}
@@ -255,7 +253,7 @@ export default class Profile extends React.Component {
     }
 
     return (
-      <View style={{marginBottom: 3}}>
+      <View style={{ marginBottom: 3 }}>
         <View style={[SharedStyles.sectionLabelContainer, { marginTop: 10 }]}>
           <Text style={SharedStyles.sectionLabelText}>SAVED SNACKS</Text>
         </View>
@@ -284,7 +282,6 @@ export default class Profile extends React.Component {
         key={i}
         hideUsername
         iconUrl={app.iconUrl}
-        likeCount={app.likeCount}
         projectName={app.name}
         slug={app.packageName}
         projectUrl={app.fullName}

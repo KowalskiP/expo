@@ -34,11 +34,20 @@ android {
     targetSdkVersion safeExtGet("targetSdkVersion", 28)
     // ADD VERSIONS HERE
     // BEGIN VERSIONS
-    versionCode 110
-    versionName '2.11.0'
+    versionCode 115
+    versionName '2.12.0'
     // END VERSIONS
     ndk {
+      // We use different `abiFilters` for distributing
+      // to be able to bundle old, incompatible SDKs.
+
+      // WHEN_DISTRIBUTING_REMOVE_FROM_HERE
       abiFilters 'armeabi-v7a', 'x86'
+      // WHEN_DISTRIBUTING_REMOVE_TO_HERE
+
+      /* UNCOMMENT WHEN DISTRIBUTING
+      abiFilters 'armeabi-v7a', 'x86', 'arm64-v8a', 'x86_64'
+      END UNCOMMENT WHEN DISTRIBUTING */
     }
     multiDexEnabled true
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -70,6 +79,7 @@ android {
     release {
       minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      consumerProguardFiles 'proguard-rules.pro'
       signingConfig signingConfigs.release
     }
   }
@@ -86,6 +96,7 @@ devicefarm {
   devicePool System.getenv("DEVICEFARM_DEVICE_POOL")
   executionTimeoutMinutes 40
   authentication {
+
     accessKey System.getenv("AWS_ACCESS_KEY_ID")
     secretKey System.getenv("AWS_SECRET_ACCESS_KEY")
   }
@@ -93,7 +104,7 @@ devicefarm {
 
 configurations.all {
   resolutionStrategy {
-    force 'org.webkit:android-jsc:r241213'
+    force 'org.webkit:android-jsc:r245459'
   }
 }
 
@@ -147,9 +158,7 @@ dependencies {
   implementation 'com.segment.analytics.android:analytics:4.3.0'
   implementation 'com.google.zxing:core:3.3.3'
   implementation 'net.openid:appauth:0.4.1'
-  implementation('com.airbnb.android:lottie:2.5.5') {
-    exclude group: 'com.android.support', module: 'appcompat-v7'
-  }
+  implementation 'com.airbnb.android:lottie:2.5.6'
   implementation('io.nlopez.smartlocation:library:3.2.11') {
     transitive = false
   }
@@ -177,7 +186,7 @@ dependencies {
   testImplementation 'com.android.support.test:rules:1.0.2-alpha1'
 
   /* UNCOMMENT WHEN DISTRIBUTING
-  implementation('host.exp.exponent:expoview:33.0.0@aar') {
+  implementation('host.exp.exponent:expoview:34.0.0@aar') {
     transitive = true
     exclude group: 'com.squareup.okhttp3', module: 'okhttp'
     exclude group: 'com.squareup.okhttp3', module: 'okhttp-urlconnection'
@@ -194,6 +203,10 @@ dependencies {
 
   // ADD_NEW_SDKS_HERE
 
+
+  // BEGIN_SDK_34
+  implementation(project(':expoview-abi34_0_0'))
+  // END_SDK_34
 
   // BEGIN_SDK_33
   implementation(project(':expoview-abi33_0_0'))
@@ -215,7 +228,7 @@ dependencies {
   // WHEN_DISTRIBUTING_REMOVE_TO_HERE
 
   /* UNCOMMENT WHEN DISTRIBUTING
-  api 'org.webkit:android-jsc:r241213' // needs to be before react-native
+  api 'org.webkit:android-jsc:r245459' // needs to be before react-native
   api 'com.facebook.react:react-native:33.0.0'
   END UNCOMMENT WHEN DISTRIBUTING */
 
@@ -226,7 +239,13 @@ dependencies {
         '../enabled-modules'
       ],
       configuration: 'api',
-      target       : 'react-native'
+      target       : 'react-native',
+      exclude      : [
+        'expo-module-template',
+        'expo-in-app-purchases',
+        'expo-payments-stripe',
+        'expo-updates'
+      ]
   ])
   END UNCOMMENT WHEN DISTRIBUTING */
   // WHEN_DETACHING_REMOVE_TO_HERE

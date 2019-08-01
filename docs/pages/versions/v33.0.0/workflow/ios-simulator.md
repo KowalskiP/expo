@@ -2,6 +2,8 @@
 title: iOS Simulator
 ---
 
+import Video from '../../../../components/plugins/Video'
+
 It's often convenient to develop your app directly on your computer rather than having to physically interact with an iPhone and iPad and load your app over the network, which may be slow under some conditions such as if you need to use a tunnel connection because LAN isn't possible on your network.
 
 This guide explains how you can install the iOS simulator on your Mac and use it for developing your app. It is not possible to install the iOS Simulator on any operating system except macOS; if you want to develop an app for iOS from a Windows machine then you will need to use a physical iOS device.
@@ -20,6 +22,8 @@ Open Xcode, then choose "Preferences..." from the Xcode menu (or press ⌘+,). G
 
 Run your app with `expo-cli` and press `i` from the command line or `Run on iOS simulator` from the browser-based DevTools UI. You may get a warning about needing to accept the Xcode license. Run the command that it suggests. Open your app again, success! Or no? If no, please seek help on StackOverflow, Google, or the [Expo-CLI section of the forums](https://forums.expo.io/c/expo-cli). The troubleshooting tips below may be helpful too.
 
+<Video file="open-in-ios-simulator.mp4" />
+
 ## Troubleshooting
 
 ### The CLI seems to be stuck on "Trying to open the project in iOS simulator..."
@@ -36,8 +40,8 @@ The first time you install the app in the simulator, iOS will prompt you to ask 
 
 ### How do I force an update to the latest version?
 
-You can run `expo install:ios` to download and install the latest Expo client version in the simulator.
+You can run `expo client:install:ios` to download and install the latest Expo client version in the simulator.
 
 ### expo-cli is printing some esoteric error message about xcrun, what do I do?
 
-Run `expo install:ios` again to uninstall and reinstall the Expo client app. If that doesn't help, focus the simulator window and in the Mac toolbar choose Hardware &rarr; Erase All Content and Settings... This will reinitialize your simulator from a blank image. Good to go!
+Run `expo client:install:ios` again to uninstall and reinstall the Expo client app. If that doesn't help, focus the simulator window and in the Mac toolbar choose Hardware &rarr; Erase All Content and Settings... This will reinitialize your simulator from a blank image. Good to go!

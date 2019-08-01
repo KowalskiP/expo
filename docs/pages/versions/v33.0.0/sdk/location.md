@@ -6,7 +6,7 @@ This module allows reading geolocation information from the device. Your app can
 
 ## Installation
 
-This API is pre-installed in [managed](../../introduction/managed-vs-bare/#managed-workflow) apps. To use it in a [bare](../../introduction/managed-vs-bare/#bare-workflow) React Native app, follow its [installation instructions](https://github.com/expo/expo/tree/master/packages/expo-location).
+For [managed](../../introduction/managed-vs-bare/#managed-workflow) apps, you'll need to run `expo install expo-location`. To use it in a [bare](../../introduction/managed-vs-bare/#bare-workflow) React Native app, follow its [installation instructions](https://github.com/expo/expo/tree/master/packages/expo-location).
 
 ## Usage
 
@@ -16,7 +16,7 @@ If you're using the iOS or Android Emulators, ensure that [Location is enabled](
 
 You must request permission to access the user's location before attempting to get it. To do this, you will want to use the [Permissions](../permissions/) API. You can see this in practice in the following example.
 
-<SnackEmbed snackId="H14SNiW3g" />
+<SnackEmbed snackId="@charliecruzan/basiclocationexample" />
 
 ## API
 
@@ -221,8 +221,6 @@ Registers for receiving location updates that can also come when the app is in t
     - **notificationColor (_string_)** -- Color of the foreground service notification. Accepts `#RRGGBB` and `#AARRGGBB` hex formats. _optional_
   - **pausesUpdatesAutomatically (_boolean_)** -- A boolean value indicating whether the location manager can pause location updates to improve battery life without sacrificing location data. When this option is set to `true`, the location manager pauses updates (and powers down the appropriate hardware) at times when the location data is unlikely to change. You can help the determination of when to pause location updates by assigning a value to the `activityType` property. Defaults to `false`. (**iOS only**)
   - **activityType : [Location.ActivityType](#activityType)** -- The type of user activity associated with the location updates. See [Apple docs](https://developer.apple.com/documentation/corelocation/cllocationmanager/1620567-activitytype) for more details. Defaults to `Location.ActivityType.Other`. (**iOS only**)
-
-> Deferred updates provide a way to report locations in a batch when the app is in the background state. Location updates aren't being deferred in the foreground.
 
 > Deferred updates provide a way to report locations in a batch when the app is in the background state. Location updates aren't being deferred in the foreground.
 
